@@ -19,6 +19,11 @@
 #define STATIC_STRING_BUFFER_LEN 32
 
 // ----------------------------------------------------
+// Collection.h
+#define COLLECTION_NULL_TOKEN INT_MIN
+#define COLLECTION_BUFFER_LEN 32
+
+// ----------------------------------------------------
 // StaticPointerArray.h
 #define STATIC_POINTER_ARRAY_NULL_TOKEN NULL
 #define STATIC_POINTER_ARRAY_BUFFER_LEN 32
