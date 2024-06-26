@@ -82,7 +82,7 @@ boolean Collection::push(int n){
 }
 
 boolean Collection::push(char n){
-    return Collection::push(static_cast<int>(n));
+    return this->push(static_cast<int>(n));
 }
 
 boolean Collection::push(int* arr, unsigned int size){
@@ -92,11 +92,12 @@ boolean Collection::push(int* arr, unsigned int size){
     return true;
 }
 
-boolean Collection::push(String& str) {
+boolean Collection::push(const String& str) {
     unsigned int size = str.length();
-    char* char_arr = const_cast<char*>(str.c_str());
-    int* int_arr = reinterpret_cast<int*>(char_arr);
-    return push(int_arr, size);
+    for (unsigned int i = 0U; i < size; i++) {
+        if (!this->push(str.charAt(i))) { return false; }
+    }
+    return true;
 }
 
 boolean Collection::isStackEmpty(){
@@ -134,11 +135,10 @@ unsigned int Collection::hash(){
 }
 
 String Collection::toString() {
-    int* int_arr = this->buffer;
-    char* char_arr = reinterpret_cast<char*>(int_arr);
-    this->set('\0', this->stackEndPos()); // close string
-    String str = String(char_arr);
-    // TODO: TEST THIS
-    this->set(this->nullval(), this->stackEndPos()); // change back
+    String str = "";
+    for (unsigned int i = 0U; i < this->length(); i++){
+        if (this->isEmpty(i)) { break; }
+        str += this->getChar(i);
+    }
     return str;
 }

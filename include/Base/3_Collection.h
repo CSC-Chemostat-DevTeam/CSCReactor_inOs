@@ -6,27 +6,6 @@
 
 // ----------------------------------------------------
 
-// #include <iostream>
-
-// int main() {
-//     int bla[] = {1, 2, 3, 4};
-//     int* intPtr = bla;
-
-//     // Reinterpret cast da int* a char*
-//     char* charPtr = reinterpret_cast<char*>(intPtr);
-
-//     // Stampa i byte dei primi due interi
-//     for (size_t i = 0; i < 2 * sizeof(int); ++i) {
-//         std::cout << static_cast<int>(charPtr[i]) << " ";
-//     }
-
-//     std::cout << std::endl;
-
-//     return 0;
-// }
-
-// ----------------------------------------------------
-
 class Collection{
     private:
         unsigned int idx;
@@ -57,7 +36,7 @@ class Collection{
         boolean push(int n);
         boolean push(char n);
         boolean push(int* arr, unsigned int size);
-        boolean push(String& str);
+        boolean push(const String& str);
         boolean isStackEmpty();
         boolean isStackFull();
         unsigned int stackEndPos();
