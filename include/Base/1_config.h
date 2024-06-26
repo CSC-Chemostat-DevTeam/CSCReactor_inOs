@@ -1,0 +1,86 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#include <Arduino.h>
+#include <limits.h>
+
+// ----------------------------------------------------
+// Serial communication (to be sync with PC side)
+
+#define SERIAL_BAUDRATE               19200
+
+// ----------------------------------------------------------------------------
+// PINS
+
+// ----------------------------------------------------
+// StaticStrings.h
+
+#define STATIC_STRING_NULL_TOKEN '\0'
+#define STATIC_STRING_BUFFER_LEN 32
+
+// ----------------------------------------------------
+// StaticPointerArray.h
+#define STATIC_POINTER_ARRAY_NULL_TOKEN NULL
+#define STATIC_POINTER_ARRAY_BUFFER_LEN 32
+
+// ----------------------------------------------------
+// StaticUIntArray.h
+#define STATIC_UINT_ARRAY_NULL_TOKEN UINT_MAX
+#define STATIC_UINT_ARRAY_BUFFER_LEN 32
+
+// ----------------------------------------------------
+// CSVLineReader.h
+
+#define CSV_LINE_READER_VALS_NUMBER 16
+
+// (to be sync with PC side)
+// Example of CSV line $key:VAL0:VAL1%
+#define CSV_LINE_INIT_CHAR '$'
+#define CSV_LINE_SEP_CHAR ':'
+#define CSV_LINE_END_CHAR '%'
+
+// parser states
+#define PARSER_READY_FOR_NEXT 1
+#define PARSER_ERROR 2
+#define PARSER_MSG_COMPLETED 3
+
+// ----------------------------------------------------
+// MsgHandler
+
+#define TRY_READ_MSG_TIMEOUT 300 // ms
+
+// (to be sync with PC side)
+// TODO: find the cpp way of handling strings constants
+#define MSG_RECIEVED_TOKEN "RECIEVED!!!"
+#define MSG_RESPONSE_DONE_TOKEN  "DONE!!!"
+#define MSG_ACKNOWLADGE_TOKEN "ACK"
+#define UNKNOWN_CMD_ERROR_TOKEN "ERROR, UNKNOWN COMMAND!!!"
+
+// ----------------------------------------------------
+// LogHandler
+
+#define LOG_ERROR_LEVEL       40
+#define LOG_WARN_LEVEL        30
+#define LOG_INFO_LEVEL        20
+#define LOG_DEV_LEVEL         10
+#define LOG_NOTSET_LEVEL      0
+
+#define LOG_INIT_TOKEN ">>>"
+#define LOG_END_TOKEN "<<<"
+
+#define LOG_ERR_TAG "ERROR"
+#define LOG_INFO_TAG "INFO"
+#define LOG_WARN_TAG "WARN"
+#define LOG_DEV_TAG "DEV"
+
+#define LOG_SERIAL_VLEVEL 10
+#define LOG_SD_VLEVEL 0
+
+// ----------------------------------------------------
+// UTILS
+
+#define TAB "   "
+#define LINE_SEPARATOR "----------------------"
+
+
+#endif // CONFIG_H
