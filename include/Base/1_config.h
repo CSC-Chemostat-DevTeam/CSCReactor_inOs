@@ -9,15 +9,6 @@
 
 #define SERIAL_BAUDRATE               19200
 
-// ----------------------------------------------------------------------------
-// PINS
-
-// ----------------------------------------------------
-// StaticStrings.h
-
-#define STATIC_STRING_NULL_TOKEN '\0'
-#define STATIC_STRING_BUFFER_LEN 32
-
 // ----------------------------------------------------
 // Collection.h
 #define COLLECTION_NULL_TOKEN INT_MIN

@@ -12,7 +12,7 @@ CSVLineReader::CSVLineReader(){
     
     // buffers
     for (byte i = 0; i < CSV_LINE_READER_VALS_NUMBER; i++) {
-        _CSV_LINE_VALS[i] = StaticString();
+        _CSV_LINE_VALS[i] = Collection();
     }
 }
 
@@ -28,7 +28,7 @@ void CSVLineReader::reset(){
 
     // buffers
     for (byte i = 0; i < CSV_LINE_READER_VALS_NUMBER; i++) {
-        _CSV_LINE_VALS[i].reset();
+        _CSV_LINE_VALS[i].stackReset();
     }
 }
 
@@ -80,7 +80,7 @@ int CSVLineReader::parseChar(char c){
 
     // FULL BUFFER
     for (byte i = 0; i < CSV_LINE_READER_VALS_NUMBER; i++) {
-        if (_CSV_LINE_VALS[i].isFull()) { return PARSER_ERROR; }
+        if (_CSV_LINE_VALS[i].isStackFull()) { return PARSER_ERROR; }
     }
 
     return PARSER_READY_FOR_NEXT;

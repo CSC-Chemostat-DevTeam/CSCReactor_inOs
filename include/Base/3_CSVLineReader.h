@@ -2,7 +2,7 @@
 #define KV_READER_H
 
 #include <Arduino.h>
-#include "Base/3_StaticString.h"
+#include "Base/3_Collection.h"
 
 class CSVLineReader{
 
@@ -10,7 +10,7 @@ class CSVLineReader{
         bool init_found;
         byte sep_found;
         
-        StaticString _CSV_LINE_VALS[CSV_LINE_READER_VALS_NUMBER];
+        Collection _CSV_LINE_VALS[CSV_LINE_READER_VALS_NUMBER];
 
     public:
         boolean valid_input;

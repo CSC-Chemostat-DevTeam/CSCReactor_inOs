@@ -10,9 +10,18 @@ void setup() {
     SerialDriver::onsetup();
     SerialCSVDriver::onsetup();
 
-    // DEV
-    // pinMode(37, INPUT_PULLUP);
-    // A1
+    // // DEV
+    // Collection c = Collection();
+    // c.push('B');
+    // Serial.println(c.toString());
+    // c.push('B');
+    // Serial.println(c.toString());
+    // c.push('B');
+    // Serial.println(c.toString());
+    // c.push("BLABLA");
+    // Serial.println(c.toString());
+    // Serial.println(c.toString());
+    // while(1);
 }
 
 void loop() {
