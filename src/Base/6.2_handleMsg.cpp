@@ -31,5 +31,18 @@ boolean SerialCSVDriver::handleMsg() {
         return true;
     }
 
+    // TEST-RES
+    // Example: $CSV:TEST-RES:VAL1:VAL2:VAL3...%
+    if (SerialCSVDriver::hasValString(1, "TEST-RES")) {
+        unsigned int i = 2;
+        while (1) {
+            if (SerialCSVDriver::isEmpty(i)) { break; }
+            int val = SerialCSVDriver::getValInt(i);
+            SerialCSVDriver::sendMsgResponse("val", val);
+            i++;
+        }
+        return true;
+    }
+
     return false;
 }

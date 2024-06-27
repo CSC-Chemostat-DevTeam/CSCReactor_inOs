@@ -1,11 +1,13 @@
 #include "Base/1_config.h"
 #include "Base/2_Utils.h"
-#include "Base/3_CSVLineReader.h"
 #include "Base/5_SerialDriver.h"
 #include "Base/6_SerialCSVDriver.h"
 
 // ----------------------------------------------------
 CSVLineReader SerialCSVDriver::csvline = CSVLineReader();
+Collection SerialCSVDriver::aux0 = Collection();
+Collection SerialCSVDriver::aux1 = Collection();
+Collection SerialCSVDriver::aux2 = Collection();
 unsigned long SerialCSVDriver::respcount = 0;
 
 // ----------------------------------------------------
@@ -31,27 +33,38 @@ void SerialCSVDriver::onloop(){
 }
 
 
-/// -------------------------
-// MSG INTERFACE
-String SerialCSVDriver::getValString(byte i) {
+// ----------------------------------------------------
+// ARRAY INTERFACE
+String SerialCSVDriver::getValString(unsigned int i) {
     return SerialCSVDriver::csvline.getValString(i);
 }
-
-/// -------------------------
-/// MSG VALS QUERYS
+String SerialCSVDriver::getValString(unsigned int i, const String& dflt) {
+    return SerialCSVDriver::csvline.getValString(i, dflt);
+}
+int SerialCSVDriver::getValInt(unsigned int i) {
+    return SerialCSVDriver::csvline.getValInt(i);
+}
+int SerialCSVDriver::getValInt(unsigned int i, int dflt) {
+    return SerialCSVDriver::csvline.getValInt(i, dflt);
+}
+boolean SerialCSVDriver::isEmpty(unsigned int i){
+    return SerialCSVDriver::csvline.isEmpty(i);
+}
+boolean SerialCSVDriver::isEmpty(){
+    return SerialCSVDriver::csvline.hasLine();
+}
 boolean SerialCSVDriver::hasValString(byte i, const String& str) {
     return SerialCSVDriver::getValString(i).equals(str);
 }
-
 boolean SerialCSVDriver::hasValStringPrefix(byte i, const String& prefix) {
     return SerialCSVDriver::getValString(i).startsWith(prefix);
 }
-
 boolean SerialCSVDriver::hasValStringSuffix(byte i, const String& suffix) {
     return SerialCSVDriver::getValString(i).endsWith(suffix);
 }
 
-/// -------------------------
+// ----------------------------------------------------
+// PARSER INTERFACE
 void SerialCSVDriver::reset(){
     SerialCSVDriver::csvline.reset(); // reset reader
     SerialCSVDriver::respcount = 0;
@@ -62,7 +75,7 @@ void SerialCSVDriver::tryReadMsg(unsigned long tout){
     // Serial.println(">>> SerialCSVDriver::tryReadMsg <<<");
 
     // If non reset called, skip
-    if (SerialCSVDriver::msgAvailable()) { return; }
+    if (SerialCSVDriver::isEmpty()) { return; }
 
     // local
     long t0 = millis();
@@ -71,14 +84,14 @@ void SerialCSVDriver::tryReadMsg(unsigned long tout){
         if (millis() - t0 > tout) { break; } // TIME OUT
         while (SerialDriver::available() > 0) {
             // parse char
-            char c = SerialDriver::read();
+            int c = SerialDriver::read();
             int flag = SerialCSVDriver::csvline.parseChar(c);
             if (flag == PARSER_READY_FOR_NEXT) { continue; }
             if (flag == PARSER_ERROR) { SerialCSVDriver::reset(); break; }
             if (flag == PARSER_MSG_COMPLETED) { break; }
         }
         if (flag == PARSER_ERROR) { SerialCSVDriver::reset(); break; }
-        if (SerialCSVDriver::msgAvailable()) { break; }
+        if (SerialCSVDriver::isEmpty()) { break; }
     }
 }
 
@@ -86,7 +99,7 @@ void SerialCSVDriver::tryReadMsg(const String& msg){
     // Serial.println(">>> SerialCSVDriver::tryReadMsg <<<");
 
     // If non reset called, skip
-    if (SerialCSVDriver::msgAvailable()) { return; }
+    if (SerialCSVDriver::isEmpty()) { return; }
 
     int flag = SerialCSVDriver::csvline.parseChar(msg);
     if (flag == PARSER_ERROR) { SerialCSVDriver::reset(); }
@@ -118,11 +131,8 @@ void SerialCSVDriver::closeMsgResponse(){
 }
 
 // ----------------------------------------------------
-// CSVLineReader INTERFACE
+// UTILS
 
-boolean SerialCSVDriver::msgAvailable(){
-    return SerialCSVDriver::csvline.valid_input;
-}
 unsigned int SerialCSVDriver::linehash(){
     return SerialCSVDriver::csvline.hash();
 }

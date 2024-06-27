@@ -7,35 +7,47 @@
 class CSVLineReader{
 
     private:
+        // PARSER
         bool init_found;
-        byte sep_found;
+        unsigned int sep_found;
+        boolean valid_input;
         
+        // DATA
         Collection _CSV_LINE_VALS[CSV_LINE_READER_VALS_NUMBER];
 
     public:
-        boolean valid_input;
         
+        // ----------------------------------------------------
+        // CONSTRUCTOR
         CSVLineReader();
 
-		/**
-			get the current val as String.
-		*/
-		String getValString(byte i);
+        // ----------------------------------------------------
+        // ARRAY INTERFACE
+		String getValString(unsigned int i);
+        String getValString(unsigned int i, const String& dflt);
+		int getValInt(unsigned int i);
+		int getValInt(unsigned int i, int dflt);
+		boolean isEmpty(unsigned int i);
 
-        // reset the reader
-        void reset();
-
+        // ----------------------------------------------------
+        // PARSER INTERFACE
+        int parseChar(int c);
+        int parseChar(byte c);
         int parseChar(char c);
         int parseChar(String str);
+        boolean hasLine();
+        void reset();
 
+        // ----------------------------------------------------
+        // CSV
         String csvLineString();
         // return all vals joined without separators
-        String joinVals();
+        // String joinVals();
 
-
+        // ----------------------------------------------------
+        // UTILS
         unsigned int hash(unsigned int crc);
         unsigned int hash();
-
 };
 
 

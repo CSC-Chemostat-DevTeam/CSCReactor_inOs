@@ -16,8 +16,23 @@ CSVLineReader::CSVLineReader(){
     }
 }
 
-String CSVLineReader::getValString(byte i) {
+boolean CSVLineReader::isEmpty(unsigned int i) {
+    return this->_CSV_LINE_VALS[i].isStackEmpty();
+}
+
+String CSVLineReader::getValString(unsigned int i) {
     return this->_CSV_LINE_VALS[i].toString();
+}
+String CSVLineReader::getValString(unsigned int i, const String& dflt) {
+    if (this->isEmpty(i)) { return dflt; }
+    return this->_CSV_LINE_VALS[i].toString();
+}
+int CSVLineReader::getValInt(unsigned int i) {
+    return this->getValString(i).toInt();
+}
+int CSVLineReader::getValInt(unsigned int i, int dflt) {
+    if (this->isEmpty(i)) { return dflt; }
+    return this->_CSV_LINE_VALS[i].toString().toInt();
 }
 
 void CSVLineReader::reset(){
@@ -47,7 +62,7 @@ String CSVLineReader::csvLineString(){
 // Parser
 
 // return true if char is valid
-int CSVLineReader::parseChar(char c){
+int CSVLineReader::parseChar(int c){
 
     // INIT CHAR
     if (c == CSV_LINE_INIT_CHAR) { 
@@ -86,6 +101,14 @@ int CSVLineReader::parseChar(char c){
     return PARSER_READY_FOR_NEXT;
 }
 
+int CSVLineReader::parseChar(byte c){
+    return this->parseChar(static_cast<int>(c));
+}
+
+int CSVLineReader::parseChar(char c){
+    return this->parseChar(static_cast<int>(c));
+}
+
 int CSVLineReader::parseChar(String str) {
     for (unsigned int i = 0; i < str.length(); i++) {
         int flag = parseChar(str[i]);
@@ -96,6 +119,9 @@ int CSVLineReader::parseChar(String str) {
     return PARSER_ERROR;
 }
 
+boolean CSVLineReader::hasLine() {
+    return this->valid_input;
+}
 
 // ----------------------------------------------------
 // HASH 

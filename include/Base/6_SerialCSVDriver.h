@@ -3,7 +3,7 @@
 
 #include "Base/2_Utils.h"
 #include "Base/3_CSVLineReader.h"
-#include "Base/3_CSVLineReader.h"
+#include "Base/3_Collection.h"
 #include "Base/5_SerialDriver.h"
 
 // ----------------------------------------------------
@@ -14,6 +14,9 @@
 namespace SerialCSVDriver
 {
     extern CSVLineReader csvline;
+    extern Collection aux0; // for auxiliar computations
+    extern Collection aux1; // for auxiliar computations
+    extern Collection aux2; // for auxiliar computations
 
     // Response
     extern unsigned long respcount;
@@ -44,10 +47,16 @@ namespace SerialCSVDriver
     // place for registering MdgHandlers
     void handleAllMsgs();
 
-    String getValString(byte i);
-
-    boolean msgAvailable();
     String msgCsvLineString();
+
+    // ----------------------------------------------------
+    // ARRAY INTERFACE
+    String getValString(unsigned int i);
+    String getValString(unsigned int i, const String& dflt);
+    int getValInt(unsigned int i);
+    int getValInt(unsigned int i, int dflt);
+    boolean isEmpty(unsigned int i);
+    boolean isEmpty();
 
     // ----------------------------------------------------
     // HASHES

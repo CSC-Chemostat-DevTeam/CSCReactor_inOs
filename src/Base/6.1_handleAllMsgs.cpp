@@ -14,7 +14,7 @@ void SerialCSVDriver::handleAllMsgs(){
     // Serial.println(">>> Chemostat::handleAllMsgs <<<");
 
     // no cmd is a noop
-    if (!SerialCSVDriver::msgAvailable()) { return; }
+    if (!SerialCSVDriver::isEmpty()) { return; }
 
     // Open response
     SerialCSVDriver::openMsgResponse();

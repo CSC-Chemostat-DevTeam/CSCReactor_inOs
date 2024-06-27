@@ -15,19 +15,18 @@
 #define COLLECTION_BUFFER_LEN 32
 
 // ----------------------------------------------------
-// StaticPointerArray.h
-#define STATIC_POINTER_ARRAY_NULL_TOKEN NULL
-#define STATIC_POINTER_ARRAY_BUFFER_LEN 32
+// ArduinoDriver.h
 
-// ----------------------------------------------------
-// StaticUIntArray.h
-#define STATIC_UINT_ARRAY_NULL_TOKEN UINT_MAX
-#define STATIC_UINT_ARRAY_BUFFER_LEN 32
+#define ARDUINO_MAX_PULSE_TIME 10000
 
 // ----------------------------------------------------
 // CSVLineReader.h
+#define ANALOG_OP_TYPE 0
+#define DIGITAL_OP_TYPE 1
+#define DRY_OP_TYPE 2
+#define NONDRY_OP_TYPE 3
 
-#define CSV_LINE_READER_VALS_NUMBER 16
+#define CSV_LINE_READER_VALS_NUMBER 32
 
 // (to be sync with PC side)
 // Example of CSV line $key:VAL0:VAL1%
