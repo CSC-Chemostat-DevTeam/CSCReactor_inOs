@@ -15,16 +15,19 @@
 #define COLLECTION_BUFFER_LEN 32
 
 // ----------------------------------------------------
-// ArduinoDriver.h
+// PinDriver.h
 
-#define ARDUINO_MAX_PULSE_TIME 10000
+#define PIN_PULSE_OUT_MAX_TIME 2000
 
-// ----------------------------------------------------
-// CSVLineReader.h
 #define ANALOG_OP_TYPE 0
 #define DIGITAL_OP_TYPE 1
 #define DRY_OP_TYPE 2
 #define NONDRY_OP_TYPE 3
+
+#define PIN_PULSE_IN_TIMEOUT 500UL // micro seconds
+
+// ----------------------------------------------------
+// CSVLineReader.h
 
 #define CSV_LINE_READER_VALS_NUMBER 32
 

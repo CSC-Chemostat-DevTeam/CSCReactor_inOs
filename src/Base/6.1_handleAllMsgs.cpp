@@ -3,7 +3,7 @@
 #include "Base/3_CSVLineReader.h"
 #include "Base/5_SerialDriver.h"
 #include "Base/6_SerialCSVDriver.h"
-#include "Base/7_ArduinoDriver.h"
+#include "Base/7_PinDriver.h"
 
 // ----------------------------------------------------
 // place for registering MdgHandlers
@@ -25,7 +25,7 @@ void SerialCSVDriver::handleAllMsgs(){
     else if (Utils::handleMsg()) {;}
     else if (SerialDriver::handleMsg()) {;}
     else if (SerialCSVDriver::handleMsg()) {;}
-    else if (ArduinoDriver::handleMsg()) {;}
+    else if (PinDriver::handleMsg()) {;}
     else {
         // fallback
         SerialCSVDriver::sendMsgResponse(UNKNOWN_CMD_ERROR_TOKEN);
