@@ -217,7 +217,7 @@ void PinDriver::_concurrent_pulse_out(int type){
         SerialCSVDriver::aux2.set(1, i); // flag on
     }
 
-    // concurrent "sleep"
+    // concurrent action
     while (1) {
         boolean someone = false;
         for (i = 2; i < i1; i += 4) {
@@ -232,22 +232,24 @@ void PinDriver::_concurrent_pulse_out(int type){
             crt = static_cast<int>(millis() - t0);  // check time - ref time
             et = crt - wrt;                         // elapsed time = ct - t0 - wt + t0 = ct - wt
             tt = SerialCSVDriver::aux0.get(i+2);    // target time
-            if (et >= tt || et >= PIN_PULSE_OUT_MAX_TIME) {
-                pin = SerialCSVDriver::aux0.get(i);
-                val1 = SerialCSVDriver::aux0.get(i+3);
+            if (et < tt) { continue; }
+            if (et < PIN_PULSE_OUT_MAX_TIME) { continue; }
 
-                _write(type, pin, val1);
+            // action
+            pin = SerialCSVDriver::aux0.get(i);
+            val1 = SerialCSVDriver::aux0.get(i+3);
 
-                SerialCSVDriver::aux2.set(0, i); // flag off
-                SerialCSVDriver::aux1.set(et, i); // store elapsed
-            }
+            _write(type, pin, val1);
+
+            SerialCSVDriver::aux2.set(0, i); // flag off
+            SerialCSVDriver::aux1.set(et, i); // store elapsed
         }
         if (!someone) { break; }
     }
 
     // responde
     for (i = 2; i < i1; i += 4) {
-        et = SerialCSVDriver::aux1.get(i); // store elapsed
+        et = SerialCSVDriver::aux1.get(i); // stored elapsed
         SerialCSVDriver::sendMsgResponse("et", et);
     }
 }
