@@ -7,10 +7,6 @@
 // Some util functions
 //  --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-//  --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-// My printing
-// Just allow to pass multiple arguments in a single call to Serial.print
-
 namespace Utils
 {
     // -------------------------
@@ -19,6 +15,7 @@ namespace Utils
 
     // -------------------------
     // print
+    // Just allow to pass multiple arguments in a single call to Serial.print
     template <typename Arg>
     void _print(Arg arg) {
         Serial.print(arg);

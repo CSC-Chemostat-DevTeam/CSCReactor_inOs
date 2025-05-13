@@ -6,7 +6,7 @@
 #include "Base/7_PinDriver.h"
 
 /// -------------------------
-
+// MARK: _count_pulses2
 unsigned long PinDriver::_count_pulses2(int pin, unsigned long sampling_time) {
 
     // reset
@@ -26,6 +26,7 @@ unsigned long PinDriver::_count_pulses2(int pin, unsigned long sampling_time) {
     return n;
 }
 
+// MARK: _read
 int PinDriver::_read(int type, unsigned int pin) {
     if (type == DIGITAL_OP_TYPE) {
         return digitalRead(pin); // digitalWrite
@@ -43,6 +44,7 @@ int PinDriver::_read(int type, unsigned int pin) {
     return -2;
 }
 
+// MARK: _write
 void PinDriver::_write(int type, unsigned int pin, int val) {
     if (type == DIGITAL_OP_TYPE) {
         digitalWrite(pin, val);
@@ -63,6 +65,7 @@ void PinDriver::_write(int type, unsigned int pin, int val) {
     Serial.println("_write: BAD TYPE");
 }
 
+// MARK: _pin_mode
 void PinDriver::_pin_mode(int type, int pin, int mode) {
     if (type == NONDRY_OP_TYPE) {
         pinMode(pin, mode);
@@ -81,6 +84,7 @@ void PinDriver::_pin_mode(int type, int pin, int mode) {
 
 /// -------------------------
 // "PIN-MODE"
+// MARK: _serial_pin_mode
 void PinDriver::_serial_pin_mode(int type){
     unsigned int i = 2;
     while (1) {
@@ -99,6 +103,7 @@ void PinDriver::_serial_pin_mode(int type){
 }
 
 // S-READ
+// MARK: _serial_read
 void PinDriver::_serial_read(int type) {
     unsigned int i = 2;
     while (1) {
@@ -116,6 +121,7 @@ void PinDriver::_serial_read(int type) {
 }
 
 // S-WRITE
+// MARK: _serial_write
 void PinDriver::_serial_write(int type) {
     unsigned int i = 2;
     while (1) {
@@ -137,6 +143,7 @@ void PinDriver::_serial_write(int type) {
 // TODO: Maybe move to other file...
 
 // S-PULSE
+// MARK: _serial_pulse_out
 extern void PinDriver::_serial_pulse_out(int type) {
     unsigned int i = 2;
     while (1) {
@@ -162,6 +169,7 @@ extern void PinDriver::_serial_pulse_out(int type) {
 }
 
 // C-PULSE
+// MARK: _concurrent_pulse_out
 void PinDriver::_concurrent_pulse_out(int type){
  
     // variables

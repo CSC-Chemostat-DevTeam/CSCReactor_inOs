@@ -6,7 +6,8 @@
 //  --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // Hashing
 // from: https://forum.arduino.cc/t/simple-checksum-that-a-noob-can-use/300443/3
-// TOSYNC
+// TOSYNC with PC implementations
+// MARK: crc16_hash
 unsigned int Utils::crc16_hash(unsigned int crc, unsigned int c){
   int i;
   crc ^= c;
@@ -22,6 +23,7 @@ unsigned int Utils::crc16_hash(unsigned int crc, unsigned int c){
 }
 
 // For debb
+// MARK: crc16_hash
 unsigned int Utils::crc16_hash(unsigned int crc, String str){
     for (unsigned int i = 0; i < str.length(); i++) {
         crc = Utils::crc16_hash(crc, (unsigned int)str.charAt(i));

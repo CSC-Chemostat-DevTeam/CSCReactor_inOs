@@ -4,6 +4,7 @@
 #include "Base/5_SerialDriver.h"
 #include "Base/6_SerialCSVDriver.h"
 #include "Base/7_PinDriver.h"
+#include "Base/8_DHT11Driver.h"
 
 // ----------------------------------------------------
 // place for registering MdgHandlers
@@ -26,6 +27,7 @@ void SerialCSVDriver::handleAllMsgs(){
     else if (SerialDriver::handleMsg()) {;}
     else if (SerialCSVDriver::handleMsg()) {;}
     else if (PinDriver::handleMsg()) {;}
+    else if (DHT11Driver::handleMsg()) {;}
     else {
         // fallback
         SerialCSVDriver::sendMsgResponse(UNKNOWN_CMD_ERROR_TOKEN);

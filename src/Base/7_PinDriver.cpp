@@ -13,6 +13,7 @@ void PinDriver::sayHi() {
 // ----------------------------------------------------
 // SKETCH INTERFACE
 void PinDriver::onsetup(){
+    PinDriver::sayHi();
     // Set all pins to INPUT_PULLUP
     for (unsigned int pin = 3; pin < NUM_DIGITAL_PINS; pin++) {
         pinMode(pin, OUTPUT);

@@ -29,7 +29,7 @@ void SerialCSVDriver::onloop(){
     SerialCSVDriver::handleAllMsgs();
 
     // Reset reader
-    SerialCSVDriver::reset(); // reset reader
+    SerialCSVDriver::reset();
 }
 
 

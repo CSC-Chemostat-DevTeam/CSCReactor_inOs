@@ -28,8 +28,7 @@ void SerialDriver::initConnection(unsigned long baud_rate){
     Serial.begin(baud_rate);
     delay(3);
     while(Serial.available()) Serial.read(); // empty  out possible garbage from input buffer
-    // if the device was sending data while you changed the baud rate, the info in the input buffer
-    // is corrupted.
+    // if the device was sending data while you changed the baud rate, the info in the input buffer is corrupted.
 
     // this->info("Serial connected, boud rate: ", this->baud_rate);
 }
