@@ -3,38 +3,47 @@
 #include "Base/3_CSVLineReader.h"
 #include "Base/5_SerialDriver.h"
 #include "Base/6_SerialCSVDriver.h"
-#include "Base/7_PinDriver.h"
+#include "Base/7_InoDriver.h"
 
 /// -------------------------
 // MARK: _count_pulses2
-unsigned long PinDriver::_count_pulses2(int pin, unsigned long sampling_time) {
+unsigned long InoDriver::_count_pulses2(int pin, unsigned long sampling_time)
+{
 
     // reset
     unsigned long n = 0;
     unsigned long time0 = millis();
 
-    while (true) {
+    while (true)
+    {
 
         // wait till a HIGH pulse happends and ends
         pulseIn(pin, HIGH, PIN_PULSE_IN_TIMEOUT);
         n++;
 
         // Time out
-        if (millis() - time0 > sampling_time) { break; }
+        if (millis() - time0 > sampling_time)
+        {
+            break;
+        }
     }
 
     return n;
 }
 
 // MARK: _read
-int PinDriver::_read(int type, unsigned int pin) {
-    if (type == DIGITAL_OP_TYPE) {
+int InoDriver::_read(int type, unsigned int pin)
+{
+    if (type == DIGITAL_OP_TYPE)
+    {
         return digitalRead(pin); // digitalWrite
-    } 
-    if (type == ANALOG_OP_TYPE) {
+    }
+    if (type == ANALOG_OP_TYPE)
+    {
         return analogRead(pin); // digitalWrit1
-    } 
-    if (type == DRY_OP_TYPE) {
+    }
+    if (type == DRY_OP_TYPE)
+    {
         Serial.print("dryRead(");
         Serial.print(pin);
         Serial.println(");");
@@ -45,16 +54,20 @@ int PinDriver::_read(int type, unsigned int pin) {
 }
 
 // MARK: _write
-void PinDriver::_write(int type, unsigned int pin, int val) {
-    if (type == DIGITAL_OP_TYPE) {
+void InoDriver::_write(int type, unsigned int pin, int val)
+{
+    if (type == DIGITAL_OP_TYPE)
+    {
         digitalWrite(pin, val);
         return;
-    } 
-    if (type == ANALOG_OP_TYPE) {
+    }
+    if (type == ANALOG_OP_TYPE)
+    {
         analogWrite(pin, val);
         return;
-    } 
-    if (type == DRY_OP_TYPE) {
+    }
+    if (type == DRY_OP_TYPE)
+    {
         Serial.print("dryWrite(");
         Serial.print(pin);
         Serial.print(",");
@@ -66,12 +79,15 @@ void PinDriver::_write(int type, unsigned int pin, int val) {
 }
 
 // MARK: _pin_mode
-void PinDriver::_pin_mode(int type, int pin, int mode) {
-    if (type == NONDRY_OP_TYPE) {
+void InoDriver::_pin_mode(int type, int pin, int mode)
+{
+    if (type == NONDRY_OP_TYPE)
+    {
         pinMode(pin, mode);
         return;
     }
-    if (type == DRY_OP_TYPE) {
+    if (type == DRY_OP_TYPE)
+    {
         Serial.print("dryPinMode(");
         Serial.print(pin);
         Serial.print(",");
@@ -85,18 +101,26 @@ void PinDriver::_pin_mode(int type, int pin, int mode) {
 /// -------------------------
 // "PIN-MODE"
 // MARK: _serial_pin_mode
-void PinDriver::_serial_pin_mode(int type){
+void InoDriver::_serial_pin_mode(int type)
+{
     unsigned int i = 2;
-    while (1) {
+    while (1)
+    {
         // check args
-        if (SerialCSVDriver::isEmpty(i)) { break; }     // pin index
-        if (SerialCSVDriver::isEmpty(i+1)) { break; }   // mode index
+        if (SerialCSVDriver::isEmpty(i))
+        {
+            break;
+        } // pin index
+        if (SerialCSVDriver::isEmpty(i + 1))
+        {
+            break;
+        } // mode index
 
         // do stuff
         int pin = SerialCSVDriver::getValInt(i);
-        int mode = SerialCSVDriver::getValInt(i+1);
+        int mode = SerialCSVDriver::getValInt(i + 1);
         _pin_mode(type, pin, mode);
-        
+
         // up index
         i += 2;
     }
@@ -104,12 +128,17 @@ void PinDriver::_serial_pin_mode(int type){
 
 // S-READ
 // MARK: _serial_read
-void PinDriver::_serial_read(int type) {
+void InoDriver::_serial_read(int type)
+{
     unsigned int i = 2;
-    while (1) {
+    while (1)
+    {
         // check args
-        if (SerialCSVDriver::isEmpty(i)) { break; } // pin
-        
+        if (SerialCSVDriver::isEmpty(i))
+        {
+            break;
+        } // pin
+
         // do stuff
         int pin = SerialCSVDriver::getValInt(i);
         int val = _read(type, pin);
@@ -122,16 +151,24 @@ void PinDriver::_serial_read(int type) {
 
 // S-WRITE
 // MARK: _serial_write
-void PinDriver::_serial_write(int type) {
+void InoDriver::_serial_write(int type)
+{
     unsigned int i = 2;
-    while (1) {
+    while (1)
+    {
         // check args
-        if (SerialCSVDriver::isEmpty(i)) { break; }   // pin
-        if (SerialCSVDriver::isEmpty(i+1)) { break; } // val
+        if (SerialCSVDriver::isEmpty(i))
+        {
+            break;
+        } // pin
+        if (SerialCSVDriver::isEmpty(i + 1))
+        {
+            break;
+        } // val
 
         // do stuff
         int pin = SerialCSVDriver::getValInt(i);
-        int val = SerialCSVDriver::getValInt(i+1);
+        int val = SerialCSVDriver::getValInt(i + 1);
         _write(type, pin, val);
 
         // up index
@@ -144,24 +181,38 @@ void PinDriver::_serial_write(int type) {
 
 // S-PULSE
 // MARK: _serial_pulse_out
-extern void PinDriver::_serial_pulse_out(int type) {
+extern void InoDriver::_serial_pulse_out(int type)
+{
     unsigned int i = 2;
-    while (1) {
-         // check args
-        if (SerialCSVDriver::isEmpty(i)) { break; }   // pin
-        if (SerialCSVDriver::isEmpty(i+1)) { break; } // val0
-        if (SerialCSVDriver::isEmpty(i+2)) { break; } // time
-        if (SerialCSVDriver::isEmpty(i+3)) { break; } // val1
+    while (1)
+    {
+        // check args
+        if (SerialCSVDriver::isEmpty(i))
+        {
+            break;
+        } // pin
+        if (SerialCSVDriver::isEmpty(i + 1))
+        {
+            break;
+        } // val0
+        if (SerialCSVDriver::isEmpty(i + 2))
+        {
+            break;
+        } // time
+        if (SerialCSVDriver::isEmpty(i + 3))
+        {
+            break;
+        } // val1
 
         // do stuff
         int pin = SerialCSVDriver::getValInt(i);
-        int val0 = SerialCSVDriver::getValInt(i+1);
-        int time = SerialCSVDriver::getValInt(i+2);
-        int val1 = SerialCSVDriver::getValInt(i+3);
+        int val0 = SerialCSVDriver::getValInt(i + 1);
+        int time = SerialCSVDriver::getValInt(i + 2);
+        int val1 = SerialCSVDriver::getValInt(i + 3);
         _write(type, pin, val0);
         delay(time);
         _write(type, pin, val1);
-        SerialCSVDriver::sendMsgResponse("et", time);
+        SerialCSVDriver::sendMsgResponse("pin", pin, "et", time);
 
         // up index
         i += 4;
@@ -170,11 +221,13 @@ extern void PinDriver::_serial_pulse_out(int type) {
 
 // C-PULSE
 // MARK: _concurrent_pulse_out
-void PinDriver::_concurrent_pulse_out(int type){
- 
+// $INO[0]:ANALOG-C-PULSE[1]:PIN1[2]:VAL10[3]:TIME1[4]:VAL11[5]:...%
+void InoDriver::_concurrent_pulse_out(int type)
+{
+
     // variables
     unsigned long t0 = millis(); // Use intervals to avoid int overflow
-    unsigned int i = 2;
+    unsigned int i = 2; // pin
     unsigned int i1 = 0;
     int pin = 0;
     int val0 = 0;
@@ -187,78 +240,111 @@ void PinDriver::_concurrent_pulse_out(int type){
     int tt = 0;
 
     // load
-    while (1) {
+    while (1)
+    {
         // check args
-        if (SerialCSVDriver::isEmpty(i)) { break; }   // pin
-        if (SerialCSVDriver::isEmpty(i+1)) { break; } // val0
-        if (SerialCSVDriver::isEmpty(i+2)) { break; } // time
-        if (SerialCSVDriver::isEmpty(i+3)) { break; } // val1
+        // $...:PIN1:VAL10:TIME1:VAL11:...%
+        if (SerialCSVDriver::isEmpty(i))
+        { // pin
+            break;
+        }
+        if (SerialCSVDriver::isEmpty(i + 1))
+        { // val0
+            break;
+        }
+        if (SerialCSVDriver::isEmpty(i + 2))
+        { // time
+            break;
+        }
+        if (SerialCSVDriver::isEmpty(i + 3))
+        { // val1
+            break;
+        }
 
         // do stuff
         // load
-        pin = SerialCSVDriver::getValInt(i); 
-        val0 = SerialCSVDriver::getValInt(i+1); 
-        time = SerialCSVDriver::getValInt(i+2);
-        val1 = SerialCSVDriver::getValInt(i+3);
-        
+        // $...:PIN1:VAL10:TIME1:VAL11:...%
+        pin = SerialCSVDriver::getValInt(i);
+        val0 = SerialCSVDriver::getValInt(i + 1);
+        time = SerialCSVDriver::getValInt(i + 2);
+        val1 = SerialCSVDriver::getValInt(i + 3);
+
         // store
         SerialCSVDriver::aux0.set(pin, i);
-        SerialCSVDriver::aux0.set(val0, i+1); 
-        SerialCSVDriver::aux0.set(time, i+2); 
-        SerialCSVDriver::aux0.set(val1, i+3); 
+        SerialCSVDriver::aux0.set(val0, i + 1);
+        SerialCSVDriver::aux0.set(time, i + 2);
+        SerialCSVDriver::aux0.set(val1, i + 3);
 
         // up index
         i += 4;
     }
     i1 = i; // store the first invalid arg set
-    
 
     // digitalWrite
-    for (i = 2; i < i1; i += 4) {
+    for (i = 2; i < i1; i += 4)
+    {
         pin = SerialCSVDriver::aux0.get(i);
-        val0 = SerialCSVDriver::aux0.get(i+1); 
+        val0 = SerialCSVDriver::aux0.get(i + 1);
 
         _write(type, pin, val0);
-        
+
         wrt = static_cast<int>(millis() - t0); // write time - ref time
-        SerialCSVDriver::aux1.set(wrt, i); // store rel write time
-        SerialCSVDriver::aux2.set(1, i); // flag on
+        SerialCSVDriver::aux1.set(wrt, i);     // store rel write time
+        SerialCSVDriver::aux2.set(1, i);       // flag on
     }
 
     // concurrent action
-    while (1) {
+    while (1)
+    {
         boolean someone = false;
-        for (i = 2; i < i1; i += 4) {
+        for (i = 2; i < i1; i += 4)
+        {
 
             // check flag
             flag = SerialCSVDriver::aux2.get(i); // flag on
-            if (!flag) { continue; }
+            if (!flag)
+            {
+                continue;
+            }
             someone = true;
 
             // check time
-            wrt = SerialCSVDriver::aux1.get(i);     // write time - ref time
-            crt = static_cast<int>(millis() - t0);  // check time - ref time
-            et = crt - wrt;                         // elapsed time = ct - t0 - wt + t0 = ct - wt
-            tt = SerialCSVDriver::aux0.get(i+2);    // target time
-            if (et < tt) { continue; }
-            if (et < PIN_PULSE_OUT_MAX_TIME) { continue; }
+            wrt = SerialCSVDriver::aux1.get(i);    // write time - ref time
+            crt = static_cast<int>(millis() - t0); // check time - ref time
+            et = crt - wrt;                        // elapsed time = ct - t0 - wt + t0 = ct - wt
+
+            tt = SerialCSVDriver::aux0.get(i + 2); // target time
+            // SerialDriver::println("et: ", et, ", tt: ", tt);
+            if (et < tt)
+            {
+                continue;
+            }
+            if (et > PIN_PULSE_OUT_MAX_TIME)
+            {
+                continue;
+            }
 
             // action
             pin = SerialCSVDriver::aux0.get(i);
-            val1 = SerialCSVDriver::aux0.get(i+3);
+            val1 = SerialCSVDriver::aux0.get(i + 3);
 
             _write(type, pin, val1);
 
-            SerialCSVDriver::aux2.set(0, i); // flag off
+            SerialCSVDriver::aux2.set(0, i);  // flag off
             SerialCSVDriver::aux1.set(et, i); // store elapsed
         }
-        if (!someone) { break; }
+        if (!someone)
+        {
+            break;
+        }
     }
 
     // responde
-    for (i = 2; i < i1; i += 4) {
+    for (i = 2; i < i1; i += 4)
+    {
+        pin = SerialCSVDriver::aux0.get(i);
         et = SerialCSVDriver::aux1.get(i); // stored elapsed
-        SerialCSVDriver::sendMsgResponse("et", et);
+        SerialCSVDriver::sendMsgResponse("pin", pin, "et", et);
     }
 }
 
@@ -267,7 +353,7 @@ void PinDriver::_concurrent_pulse_out(int type){
 // TODO: Finish this
 
 // TOUT:PIN1:PIN2:PIN3...
-// void PinDriver::_concurrent_pulse_in() {
+// void InoDriver::_concurrent_pulse_in() {
 
 //     unsigned int i = 2;
 //     unsigned int i1 = 0;
@@ -275,17 +361,16 @@ void PinDriver::_concurrent_pulse_out(int type){
 //     int tout = 0;
 //     unsigned long t0 = 0; // Use intervals to avoid int overflow
 
-
 //     // tout
 //     if (SerialCSVDriver::isEmpty(i)) { return; }
-//     tout = SerialCSVDriver::getValInt(i); 
+//     tout = SerialCSVDriver::getValInt(i);
 //     i++;
 
 //     // load
 //     while (1) {
 //         // check args
 //         if (SerialCSVDriver::isEmpty(i)) { break; }   // pin
-//         pin = SerialCSVDriver::getValInt(i); 
+//         pin = SerialCSVDriver::getValInt(i);
 //         SerialCSVDriver::aux0.set(pin, i);
 //         SerialCSVDriver::aux1.set(INT_MIN, i); // accumulator
 //         SerialCSVDriver::aux2.set(INT_MIN, i); // counter
@@ -297,7 +382,6 @@ void PinDriver::_concurrent_pulse_out(int type){
 //     t0 = millis();
 //     while (true) {
 //     }
-
 
 //     // // reset
 //     // unsigned long n = 0;

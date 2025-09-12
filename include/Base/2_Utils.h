@@ -17,33 +17,38 @@ namespace Utils
     // print
     // Just allow to pass multiple arguments in a single call to Serial.print
     template <typename Arg>
-    void _print(Arg arg) {
+    void _print(Arg arg)
+    {
         Serial.print(arg);
     }
     // variadic template with one or more arguments.
     template <typename First, typename... Args>
-    void _print(First first, Args... args) {
-        Serial.print(first); 
+    void _print(First first, Args... args)
+    {
+        Serial.print(first);
         _print(args...);
     }
 
     // println
     template <typename Arg>
-    void _println(Arg arg) {
+    void _println(Arg arg)
+    {
         _print(arg);
         Serial.println();
     }
     // variadic template with one or more arguments.
     template <typename First, typename... Args>
-    void _println(First first, Args... args) {
-        _print(first); 
+    void _println(First first, Args... args)
+    {
+        _print(first);
         _println(args...);
     }
 
     //  --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // Hashing
-    unsigned int crc16_hash(unsigned int crc, unsigned int c);
-    unsigned int crc16_hash(unsigned int crc, String str);
+    unsigned int crc16_hash(unsigned int c, unsigned int crc);
+    unsigned int crc16_hash(String str, unsigned int crc);
+    unsigned int _traced_crc16_hash2(String str, unsigned int crc);
 };
 
 #endif // UTILS_H

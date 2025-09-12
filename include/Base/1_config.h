@@ -5,17 +5,18 @@
 #include <limits.h>
 
 // ----------------------------------------------------
-// Serial communication (to be sync with PC side)
+// MARK: Serial communication
+// #NOTE: to be sync with PC side
 
-#define SERIAL_BAUDRATE               19200
+#define SERIAL_BAUDRATE 19200
 
 // ----------------------------------------------------
-// Collection.h
+// MARK: Collection.h
 #define COLLECTION_NULL_TOKEN INT_MIN
 #define COLLECTION_BUFFER_LEN 32
 
 // ----------------------------------------------------
-// PinDriver.h
+// MARK: InoDriver.h
 
 #define PIN_PULSE_OUT_MAX_TIME 2000
 
@@ -27,7 +28,7 @@
 #define PIN_PULSE_IN_TIMEOUT 500UL // micro seconds
 
 // ----------------------------------------------------
-// CSVLineReader.h
+// MARK: CSVLineReader.h
 
 #define CSV_LINE_READER_VALS_NUMBER 32
 
@@ -43,25 +44,31 @@
 #define PARSER_MSG_COMPLETED 3
 
 // ----------------------------------------------------
-// MsgHandler
+// MARK: 4_CSCReactor.h
+#define PROD_RUN_MODE 0
+#define DEV_RUN_MODE 1
+
+// ----------------------------------------------------
+// MARK: MsgHandler
 
 #define TRY_READ_MSG_TIMEOUT 300 // ms
 
 // (to be sync with PC side)
 // TODO: find the cpp way of handling strings constants
 #define MSG_RECIEVED_TOKEN "RECIEVED!!!"
-#define MSG_RESPONSE_DONE_TOKEN  "DONE!!!"
+#define MSG_RESPONSE_DONE_TOKEN "DONE!!!"
 #define MSG_ACKNOWLADGE_TOKEN "ACK"
+#define MSG_ECHO_TOKEN "ECHO"
 #define UNKNOWN_CMD_ERROR_TOKEN "ERROR, UNKNOWN COMMAND!!!"
 
 // ----------------------------------------------------
-// LogHandler
+// MARK: LogHandler
 
-#define LOG_ERROR_LEVEL       40
-#define LOG_WARN_LEVEL        30
-#define LOG_INFO_LEVEL        20
-#define LOG_DEV_LEVEL         10
-#define LOG_NOTSET_LEVEL      0
+#define LOG_ERROR_LEVEL 40
+#define LOG_WARN_LEVEL 30
+#define LOG_INFO_LEVEL 20
+#define LOG_DEV_LEVEL 10
+#define LOG_NOTSET_LEVEL 0
 
 #define LOG_INIT_TOKEN ">>>"
 #define LOG_END_TOKEN "<<<"
@@ -75,10 +82,9 @@
 #define LOG_SD_VLEVEL 0
 
 // ----------------------------------------------------
-// UTILS
+// MARK: UTILS
 
 #define TAB "   "
 #define LINE_SEPARATOR "----------------------"
-
 
 #endif // CONFIG_H

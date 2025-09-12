@@ -9,7 +9,7 @@
 // All Chemostat serial printing must use this Handler
 // ----------------------------------------------------
 
-namespace SerialDriver 
+namespace SerialDriver
 {
     // byte vlevel;
     extern unsigned long baud_rate;
@@ -26,12 +26,14 @@ namespace SerialDriver
     void initConnection(unsigned long baud_rate);
 
     template <typename T0, typename... Ts>
-    inline void print(T0 arg0, Ts... args) {
+    inline void print(T0 arg0, Ts... args)
+    {
         Utils::_print(arg0, args...);
     }
-    
+
     template <typename T0, typename... Ts>
-    inline void println(T0 arg0, Ts... args) {
+    inline void println(T0 arg0, Ts... args)
+    {
         Utils::_println(arg0, args...);
     }
     void newLine();

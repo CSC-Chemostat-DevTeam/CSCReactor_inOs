@@ -6,7 +6,7 @@
 #include <DHT_U.h>
 
 // ----------------------------------------------------
-// All parseble msgs between the PC and the board must be 
+// All parseble msgs between the PC and the board must be
 // handle by this class
 // ----------------------------------------------------
 
@@ -36,7 +36,6 @@ namespace DHT11Driver
 
     // ----------------------------------------------------
     // Utils
-    
 
 }
 

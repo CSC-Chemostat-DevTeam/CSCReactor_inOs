@@ -7,7 +7,7 @@
 #include "Base/5_SerialDriver.h"
 
 // ----------------------------------------------------
-// All parseble msgs between the PC and the board must be 
+// All parseble msgs between the PC and the board must be
 // handle by this class
 // ----------------------------------------------------
 
@@ -41,18 +41,18 @@ namespace SerialCSVDriver
         \return void
     */
     void tryReadMsg(unsigned long tout);
-    void tryReadMsg(const String& msg); // read from String (dev stuff)
+    void tryReadMsg(const String &msg); // read from String (dev stuff)
     void reset();
 
     // place for registering MdgHandlers
     void handleAllMsgs();
 
-    String msgCsvLineString();
+    String msgCsvLineString(boolean trim);
 
     // ----------------------------------------------------
     // ARRAY INTERFACE
     String getValString(unsigned int i);
-    String getValString(unsigned int i, const String& dflt);
+    String getValString(unsigned int i, const String &dflt);
     int getValInt(unsigned int i);
     int getValInt(unsigned int i, int dflt);
     boolean isEmpty(unsigned int i);
@@ -68,30 +68,33 @@ namespace SerialCSVDriver
 
     // ----------------------------------------------------
     // MSG VAL STRING QUERIES
-    boolean hasValString(byte i, const String& str);
-    boolean hasValStringPrefix(byte i, const String& prefix);
-    boolean hasValStringSuffix(byte i, const String& suffix);
+    boolean hasValString(byte i, const String &str);
+    boolean hasValStringPrefix(byte i, const String &prefix);
+    boolean hasValStringSuffix(byte i, const String &suffix);
 
     // ----------------------------------------------------
     // SEND MSG
-    
+
     // utils
     template <typename Arg>
-    inline void _printCSVVals(Arg arg) { SerialDriver::print(arg);  }
+    inline void _printCSVVals(Arg arg) { SerialDriver::print(arg); }
     // variadic template with one or more arguments.
     template <typename First, typename... Args>
-    inline void _printCSVVals(First first, Args... args) {
-        SerialDriver::print(first); 
-        SerialDriver::print(CSV_LINE_SEP_CHAR); 
+    inline void _printCSVVals(First first, Args... args)
+    {
+        SerialDriver::print(first);
+        SerialDriver::print(CSV_LINE_SEP_CHAR);
         SerialCSVDriver::_printCSVVals(args...);
     }
 
     template <typename Arg>
-    inline void sendMsg(Arg arg0) {
+    inline void sendMsg(Arg arg0)
+    {
         SerialDriver::println(CSV_LINE_INIT_CHAR, arg0, CSV_LINE_END_CHAR);
     }
     template <typename T0, typename... Ts>
-    inline void sendMsg(T0 arg0, Ts... args) {
+    inline void sendMsg(T0 arg0, Ts... args)
+    {
         SerialDriver::print(CSV_LINE_INIT_CHAR);
         SerialCSVDriver::_printCSVVals(arg0, args...);
         SerialDriver::println(CSV_LINE_END_CHAR);
@@ -101,29 +104,30 @@ namespace SerialCSVDriver
     // RESPONSE INTERFACE
     // Example $AKW:MSG-HASH:TIMETAG:CLASS-HASH:RECIEVED%
     template <typename T0, typename... Ts>
-    inline void sendMsgResponse(T0 arg0, Ts... args) {
-        SerialCSVDriver::sendMsg("RES", 
-            SerialCSVDriver::respcount,
-            SerialCSVDriver::linehash(),
-            SerialCSVDriver::timetag(),
-            arg0, args...
-        );
+    inline void sendMsgResponse(T0 arg0, Ts... args)
+    {
+        SerialCSVDriver::sendMsg("RES",
+                                 SerialCSVDriver::respcount,
+                                 SerialCSVDriver::linehash(),
+                                 SerialCSVDriver::timetag(),
+                                 arg0, args...);
         SerialCSVDriver::respcount++;
     };
     inline void sendMsgResponse() { SerialCSVDriver::respcount++; } // empty response
 
     void openMsgResponse();
     void closeMsgResponse();
+    void sendMsgEcho();
 
     // ----------------------------------------------------
     template <typename T0, typename... Ts>
-    inline void sendMsgAcknowladge(T0 arg0, Ts... args) {
+    inline void sendMsgAcknowladge(T0 arg0, Ts... args)
+    {
         SerialCSVDriver::sendMsg(
             MSG_ACKNOWLADGE_TOKEN,
             SerialCSVDriver::linehash(),
             SerialCSVDriver::timetag(),
-            arg0, args...
-        );
+            arg0, args...);
     }
 
     // ----------------------------------------------------

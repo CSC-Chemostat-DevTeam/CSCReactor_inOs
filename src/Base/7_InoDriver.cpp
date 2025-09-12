@@ -2,24 +2,28 @@
 #include "Base/2_Utils.h"
 #include "Base/3_CSVLineReader.h"
 #include "Base/5_SerialDriver.h"
-#include "Base/7_PinDriver.h"
+#include "Base/7_InoDriver.h"
 
 // ----------------------------------------------------
 // _DEV INTERFACE
-void PinDriver::sayHi() { 
-    SerialDriver::println("Hi from PinDriver");
+void InoDriver::sayHi()
+{
+    SerialDriver::println("Hi from InoDriver");
 }
 
 // ----------------------------------------------------
 // SKETCH INTERFACE
-void PinDriver::onsetup(){
-    PinDriver::sayHi();
+void InoDriver::onsetup()
+{
+    InoDriver::sayHi();
     // Set all pins to INPUT_PULLUP
-    for (unsigned int pin = 3; pin < NUM_DIGITAL_PINS; pin++) {
+    for (unsigned int pin = 3; pin < NUM_DIGITAL_PINS; pin++)
+    {
         pinMode(pin, OUTPUT);
         digitalWrite(pin, LOW);
     };
 }
-void PinDriver::onloop(){
+void InoDriver::onloop()
+{
     ;
 }
