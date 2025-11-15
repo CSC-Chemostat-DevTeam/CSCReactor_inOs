@@ -59,7 +59,7 @@ boolean SerialCSVDriver::isEmpty(unsigned int i)
 }
 boolean SerialCSVDriver::isEmpty()
 {
-    return SerialCSVDriver::csvline.hasLine();
+    return !SerialCSVDriver::csvline.hasLine();
 }
 boolean SerialCSVDriver::hasValString(byte i, const String &str)
 {
@@ -88,7 +88,7 @@ void SerialCSVDriver::tryReadMsg(unsigned long tout)
     // Serial.println(">>> SerialCSVDriver::tryReadMsg <<<");
 
     // If non reset called, skip
-    if (SerialCSVDriver::isEmpty())
+    if (!SerialCSVDriver::isEmpty())
     {
         return;
     }
@@ -126,7 +126,7 @@ void SerialCSVDriver::tryReadMsg(unsigned long tout)
             SerialCSVDriver::reset();
             break;
         }
-        if (SerialCSVDriver::isEmpty())
+        if (!SerialCSVDriver::isEmpty())
         {
             break;
         }
@@ -138,7 +138,7 @@ void SerialCSVDriver::tryReadMsg(const String &msg)
     // Serial.println(">>> SerialCSVDriver::tryReadMsg <<<");
 
     // If non reset called, skip
-    if (SerialCSVDriver::isEmpty())
+    if (!SerialCSVDriver::isEmpty())
     {
         return;
     }

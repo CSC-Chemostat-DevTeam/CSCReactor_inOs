@@ -1,0 +1,26 @@
+{
+    "root.paths": [
+        "."
+    ],
+    "output.path": "~/Documents/context.md",
+    "output.mode": "clipboard-file",
+    "include.files": [
+        "*.h",
+        "*.cpp",
+        "*.md",
+        "inlcude/**",
+        "src/**",
+        "platformio.ini"
+    ],
+    "exclude.files": [
+        "_DEPRECATED/**",
+        ".git/**",
+        "dev/**",
+        "*.jls",
+        "*.jsonl",
+        ".pio/**",
+        ".vscode/**"
+    ],
+    "print.head.lines": 60,
+    "use.gtignore": true
+}
