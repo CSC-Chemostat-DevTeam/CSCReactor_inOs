@@ -18,11 +18,11 @@ private:
 
 public:
     // ----------------------------------------------------
-    // CONSTRUCTOR
+    // MARK: CONSTRUCTOR
     CSVLineReader();
 
     // ----------------------------------------------------
-    // ARRAY INTERFACE
+    // MARK: ARRAY INTERFACE
     String getValString(unsigned int i);
     String getValString(unsigned int i, const String &dflt);
     int getValInt(unsigned int i);
@@ -30,7 +30,7 @@ public:
     boolean isEmpty(unsigned int i);
 
     // ----------------------------------------------------
-    // PARSER INTERFACE
+    // MARK: PARSER INTERFACE
     int parseChar(int c);
     int parseChar(byte c);
     int parseChar(char c);
@@ -39,13 +39,13 @@ public:
     void reset();
 
     // ----------------------------------------------------
-    // CSV
+    // MARK: CSV
     String csvLineString(boolean trim);
     // return all vals joined without separators
     // String joinVals();
 
     // ----------------------------------------------------
-    // UTILS
+    // MARK: UTILS
     unsigned int hash(unsigned int crc);
     unsigned int hash();
 };

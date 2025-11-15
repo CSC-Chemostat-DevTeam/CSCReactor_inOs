@@ -3,7 +3,7 @@
 #include "Base/3_Collection.h"
 
 // ----------------------------------------------------
-// CONSTRUCTOR
+// MARK: CONSTRUCTOR
 Collection::Collection()
 {
     this->stackReset();
@@ -22,22 +22,30 @@ Collection::Collection(int *arr, unsigned int size)
         this->push(arr[i]);
     }
 }
-
 Collection::Collection(String &str)
 {
-    unsigned int size = str.length();
-    char *char_arr = const_cast<char *>(str.c_str());
-    int *int_arr = reinterpret_cast<int *>(char_arr);
-    Collection(int_arr, size);
+    this->stackReset();
+    this->push(str);
 }
 
 // ----------------------------------------------------
-// ARRAY INTERFACE
+// MARK: ARRAY INTERFACE
+bool Collection::inRange(unsigned int i)
+{
+    return i < COLLECTION_BUFFER_LEN;
+}
+
 boolean Collection::set(int c, unsigned int i)
 {
+    if (!this->inRange(i))
+    {
+        // TODO: add logging
+        return false;
+    }
     this->buffer[i] = c;
     return true;
 }
+
 boolean Collection::set(char c, unsigned int i)
 {
     return this->set(static_cast<int>(c), i);
@@ -45,16 +53,25 @@ boolean Collection::set(char c, unsigned int i)
 
 int Collection::get(unsigned int i)
 {
+    if (!inRange(i))
+    {
+        // TODO: add logging
+        // Return sentinel to indicate "invalid"
+        return this->nullval();
+    }
     return this->buffer[i];
 }
+
 int Collection::getInt(unsigned int i)
 {
     return this->get(i);
 }
+
 unsigned int Collection::getUInt(unsigned int i)
 {
     return static_cast<unsigned int>(this->get(i));
 }
+
 char Collection::getChar(unsigned int i)
 {
     return static_cast<char>(this->get(i));
@@ -76,7 +93,7 @@ int Collection::nullval()
 }
 
 // ----------------------------------------------------
-// STACK INTERFACE
+// MARK: STACK INTERFACE
 void Collection::stackReset()
 {
     for (unsigned int i = 0U; i < this->length(); i++)
@@ -159,7 +176,7 @@ unsigned int Collection::stackLength()
 }
 
 // ----------------------------------------------------
-// UTILS INTERFACE
+// MARK: UTILS INTERFACE
 unsigned int Collection::hash(unsigned int crc)
 {
     for (unsigned int i = 0U; i < this->length(); i++)

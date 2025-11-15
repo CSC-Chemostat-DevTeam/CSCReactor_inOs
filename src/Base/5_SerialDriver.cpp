@@ -6,6 +6,7 @@
 unsigned long SerialDriver::baud_rate = SERIAL_BAUDRATE;
 
 // ----------------------------------------------------
+// MARK: SCKETCH INTERFACE
 void SerialDriver::onsetup()
 {
     SerialDriver::initConnection(SERIAL_BAUDRATE);
@@ -46,7 +47,7 @@ void SerialDriver::newLine() { Serial.println(); }
 void SerialDriver::flush() { Serial.flush(); }
 
 // ----------------------------------------------------
-// _DEV INTERFACE
+// MARK: _DEV INTERFACE
 void SerialDriver::sayHi()
 {
     SerialDriver::println("Hi from SerialDriver");

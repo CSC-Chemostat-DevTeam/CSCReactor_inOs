@@ -7,6 +7,7 @@
 bool CSCReactor::devmode = false; // Define and initialize it
 
 // ----------------------------------------------------
+// MARK: SCKETCH INTERFACE
 void CSCReactor::onsetup()
 {
     CSCReactor::sayHi();
@@ -14,7 +15,7 @@ void CSCReactor::onsetup()
 void CSCReactor::onloop() { ; }
 
 // ----------------------------------------------------
-// _DEV INTERFACE
+// MARK: _DEV INTERFACE
 void CSCReactor::sayHi()
 {
     SerialDriver::println("Hi from CSCReactor");

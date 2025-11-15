@@ -5,7 +5,6 @@
 #include "1_config.h"
 
 // ----------------------------------------------------
-
 class Collection
 {
 private:
@@ -14,13 +13,14 @@ private:
 
 public:
     // ----------------------------------------------------
-    // CONSTRUCTOR
+    // MARK: CONSTRUCTOR
     Collection();
     Collection(int *arr, unsigned int size);
     Collection(String &str);
 
     // ----------------------------------------------------
-    // ARRAY INTERFACE
+    // MARK: ARRAY INTERFACE
+    bool inRange(unsigned int i);
     boolean set(int c, unsigned int i);
     boolean set(char c, unsigned int i);
     int get(unsigned int i);
@@ -32,7 +32,7 @@ public:
     int nullval();
 
     // ----------------------------------------------------
-    // STACK INTERFACE
+    // MARK: STACK INTERFACE
     void stackReset();
     boolean push(int n);
     boolean push(char n);
@@ -44,7 +44,7 @@ public:
     unsigned int stackLength();
 
     // ----------------------------------------------------
-    // HASH INTERFACE
+    // MARK: HASH INTERFACE
     String toString();
     unsigned int hash(unsigned int crc);
     unsigned int hash();

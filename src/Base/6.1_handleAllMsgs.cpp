@@ -10,7 +10,7 @@
 // ----------------------------------------------------
 // place for registering MdgHandlers
 
-// pMSG INTERFACE
+// MARK: MSG INTERFACE
 void SerialCSVDriver::handleAllMsgs()
 {
 

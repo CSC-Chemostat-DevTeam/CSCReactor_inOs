@@ -5,14 +5,14 @@
 #include "Base/7_InoDriver.h"
 
 // ----------------------------------------------------
-// _DEV INTERFACE
+// MARK: _DEV INTERFACE
 void InoDriver::sayHi()
 {
     SerialDriver::println("Hi from InoDriver");
 }
 
 // ----------------------------------------------------
-// SKETCH INTERFACE
+// MARK: SKETCH INTERFACE
 void InoDriver::onsetup()
 {
     InoDriver::sayHi();

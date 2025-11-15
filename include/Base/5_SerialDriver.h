@@ -15,12 +15,12 @@ namespace SerialDriver
     extern unsigned long baud_rate;
 
     // ----------------------------------------------------
-    // SKETCH INTERFACE
+    // MARK: SKETCH INTERFACE
     void onsetup();
     void onloop();
 
     // ----------------------------------------------------
-    // SERIAL INTERFACE
+    // MARK: SERIAL INTERFACE
     // void setBaudRate(unsigned long brate);
     unsigned long getBaudRate();
     void initConnection(unsigned long baud_rate);
@@ -43,11 +43,11 @@ namespace SerialDriver
     void flush();
 
     // -------------------------
-    // HANDLE MSG INTERFACE
+    // MARK: HANDLE MSG INTERFACE
     boolean handleMsg();
 
     // ----------------------------------------------------
-    // _DEV INTERFACE
+    // MARK: _DEV INTERFACE
     void sayHi();
 
 };

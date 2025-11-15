@@ -22,7 +22,7 @@ namespace SerialCSVDriver
     extern unsigned long respcount;
 
     // ----------------------------------------------------
-    // SKETCH INTERFACE
+    // MARK: SKETCH INTERFACE
     void onsetup();
     void onloop();
 
@@ -31,7 +31,7 @@ namespace SerialCSVDriver
     boolean handleMsg();
 
     // ----------------------------------------------------
-    // MSG INTERFACE
+    // MARK: MSG INTERFACE
     /**
         Will try to read a key pair from serial.
         [BLOKING] This will block till tout or msg is received.
@@ -50,7 +50,7 @@ namespace SerialCSVDriver
     String msgCsvLineString(boolean trim);
 
     // ----------------------------------------------------
-    // ARRAY INTERFACE
+    // MARK: ARRAY INTERFACE
     String getValString(unsigned int i);
     String getValString(unsigned int i, const String &dflt);
     int getValInt(unsigned int i);
@@ -59,7 +59,7 @@ namespace SerialCSVDriver
     boolean isEmpty();
 
     // ----------------------------------------------------
-    // HASHES
+    // MARK: HASHES
     unsigned int linehash(); // class hash (msg1 and msg2 if equal will have equal hash)
     unsigned long timetag(); // msg hash (per msg even if are equal)
     // unsigned long timetag(){
@@ -67,7 +67,7 @@ namespace SerialCSVDriver
     // }
 
     // ----------------------------------------------------
-    // MSG VAL STRING QUERIES
+    // MARK: MSG VAL STRING QUERIES
     boolean hasValString(byte i, const String &str);
     boolean hasValStringPrefix(byte i, const String &prefix);
     boolean hasValStringSuffix(byte i, const String &suffix);
@@ -101,7 +101,7 @@ namespace SerialCSVDriver
     };
 
     // ----------------------------------------------------
-    // RESPONSE INTERFACE
+    // MARK: RESPONSE INTERFACE
     // Example $AKW:MSG-HASH:TIMETAG:CLASS-HASH:RECIEVED%
     template <typename T0, typename... Ts>
     inline void sendMsgResponse(T0 arg0, Ts... args)
@@ -131,7 +131,7 @@ namespace SerialCSVDriver
     }
 
     // ----------------------------------------------------
-    // _DEV INTERFACE
+    // MARK: _DEV INTERFACE
     void sayHi();
 }
 

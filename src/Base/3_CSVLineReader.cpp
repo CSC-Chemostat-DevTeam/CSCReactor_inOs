@@ -82,7 +82,7 @@ String CSVLineReader::csvLineString(boolean trim)
 }
 
 // ----------------------------------------------------
-// Parser
+// MARK: PARSER
 
 // return true if char is valid
 int CSVLineReader::parseChar(int c)
@@ -178,7 +178,7 @@ boolean CSVLineReader::hasLine()
 }
 
 // ----------------------------------------------------
-// HASH
+// MARK: HASH
 unsigned int CSVLineReader::hash(unsigned int crc)
 {
     for (byte i = 0; i < CSV_LINE_READER_VALS_NUMBER; i++)

@@ -12,7 +12,7 @@
 
 namespace DHT11Driver
 {
-    // DHT11 object
+    // MARK: DHT11 object
     extern DHT dht;
     extern uint8_t curr_pin;
 
@@ -22,20 +22,20 @@ namespace DHT11Driver
     float getHumidity();
 
     // ----------------------------------------------------
-    // SKETCH INTERFACE
+    // MARK: SKETCH INTERFACE
     void onsetup();
     void onloop();
 
     // -------------------------
-    // HANDLE MSG INTERFACE
+    // MARK: HANDLE MSG INTERFACE
     boolean handleMsg();
 
     // ----------------------------------------------------
-    // _DEV INTERFACE
+    // MARK: _DEV INTERFACE
     void sayHi();
 
     // ----------------------------------------------------
-    // Utils
+    // MARK: UTILS
 
 }
 

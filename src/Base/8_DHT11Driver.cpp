@@ -7,8 +7,8 @@ DHT DHT11Driver::dht(0, DHT11);
 uint8_t DHT11Driver::curr_pin = 0;
 
 // ----------------------------------------------------
-// DHT INTERFACE
-// TODO/ Add a flag to know if this was already previouly called...
+// MARK: DHT INTERFACE
+// TODO/TAI Add a flag to know if this was already previouly called...
 void DHT11Driver::begin(uint8_t pin)
 {
 
@@ -39,7 +39,7 @@ float DHT11Driver::getHumidity()
 }
 
 // ----------------------------------------------------
-// _DEV INTERFACE
+// MARK: _DEV INTERFACE
 void DHT11Driver::sayHi()
 {
     SerialDriver::println("Hi from DHT11Driver");
@@ -47,7 +47,7 @@ void DHT11Driver::sayHi()
 }
 
 // ----------------------------------------------------
-// SKETCH INTERFACE
+// MARK: SKETCH INTERFACE
 void DHT11Driver::onsetup()
 {
     // Set all pins to INPUT_PULLUP

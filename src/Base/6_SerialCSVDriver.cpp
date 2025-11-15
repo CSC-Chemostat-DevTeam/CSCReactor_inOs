@@ -4,6 +4,7 @@
 #include "Base/6_SerialCSVDriver.h"
 
 // ----------------------------------------------------
+// MARK: GLOBALS
 CSVLineReader SerialCSVDriver::csvline = CSVLineReader();
 Collection SerialCSVDriver::aux0 = Collection();
 Collection SerialCSVDriver::aux1 = Collection();
@@ -11,7 +12,7 @@ Collection SerialCSVDriver::aux2 = Collection();
 unsigned long SerialCSVDriver::respcount = 0;
 
 // ----------------------------------------------------
-// SKETCH INTERFACE
+// MARK: SKETCH INTERFACE
 void SerialCSVDriver::onsetup()
 {
     SerialCSVDriver::sayHi();
@@ -36,46 +37,54 @@ void SerialCSVDriver::onloop()
 }
 
 // ----------------------------------------------------
-// ARRAY INTERFACE
+// MARK: ARRAY INTERFACE
 String SerialCSVDriver::getValString(unsigned int i)
 {
     return SerialCSVDriver::csvline.getValString(i);
 }
+
 String SerialCSVDriver::getValString(unsigned int i, const String &dflt)
 {
     return SerialCSVDriver::csvline.getValString(i, dflt);
 }
+
 int SerialCSVDriver::getValInt(unsigned int i)
 {
     return SerialCSVDriver::csvline.getValInt(i);
 }
+
 int SerialCSVDriver::getValInt(unsigned int i, int dflt)
 {
     return SerialCSVDriver::csvline.getValInt(i, dflt);
 }
+
 boolean SerialCSVDriver::isEmpty(unsigned int i)
 {
     return SerialCSVDriver::csvline.isEmpty(i);
 }
+
 boolean SerialCSVDriver::isEmpty()
 {
     return !SerialCSVDriver::csvline.hasLine();
 }
+
 boolean SerialCSVDriver::hasValString(byte i, const String &str)
 {
     return SerialCSVDriver::getValString(i).equals(str);
 }
+
 boolean SerialCSVDriver::hasValStringPrefix(byte i, const String &prefix)
 {
     return SerialCSVDriver::getValString(i).startsWith(prefix);
 }
+
 boolean SerialCSVDriver::hasValStringSuffix(byte i, const String &suffix)
 {
     return SerialCSVDriver::getValString(i).endsWith(suffix);
 }
 
 // ----------------------------------------------------
-// PARSER INTERFACE
+// MARK: PARSER INTERFACE
 void SerialCSVDriver::reset()
 {
     SerialCSVDriver::csvline.reset(); // reset reader
@@ -187,7 +196,7 @@ void SerialCSVDriver::closeMsgResponse()
 }
 
 // ----------------------------------------------------
-// UTILS
+// MARK: UTILS
 
 unsigned int SerialCSVDriver::linehash()
 {
@@ -204,7 +213,7 @@ String SerialCSVDriver::msgCsvLineString(boolean trim)
 }
 
 // ----------------------------------------------------
-// _DEV INTERFACE
+// MARK: _DEV INTERFACE
 void SerialCSVDriver::sayHi()
 {
     SerialDriver::println("Hi from SerialCSVDriver");

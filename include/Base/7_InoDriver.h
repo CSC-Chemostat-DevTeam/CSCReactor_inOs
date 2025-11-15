@@ -11,20 +11,20 @@ namespace InoDriver
 {
 
     // ----------------------------------------------------
-    // SKETCH INTERFACE
+    // MARK: SKETCH INTERFACE
     void onsetup();
     void onloop();
 
     // -------------------------
-    // HANDLE MSG INTERFACE
+    // MARK: HANDLE MSG INTERFACE
     boolean handleMsg();
 
     // ----------------------------------------------------
-    // _DEV INTERFACE
+    // MARK: _DEV INTERFACE
     void sayHi();
 
     // ----------------------------------------------------
-    // Utils
+    // MARK: UTILS
     unsigned long _count_pulses2(int pin, unsigned long sampling_time);
     unsigned long _count_pulses3(int pin, unsigned long sampling_time);
     void _serial_pin_mode(int type);
