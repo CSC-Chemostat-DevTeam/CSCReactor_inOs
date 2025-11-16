@@ -11,15 +11,17 @@ unsigned long InoDriver::_count_pulses2(int pin, unsigned long sampling_time)
 {
 
     // reset
-    unsigned long n = 0;
+    unsigned long npulses = 0;
     unsigned long time0 = millis();
 
     while (true)
     {
 
         // wait till a HIGH pulse happends and ends
-        pulseIn(pin, HIGH, PIN_PULSE_IN_TIMEOUT);
-        n++;
+        unsigned long pw = pulseIn(pin, HIGH, PIN_PULSE_IN_TIMEOUT);
+        if (pw > 0) {
+            npulses++;
+        }
 
         // Time out
         if (millis() - time0 > sampling_time)
@@ -28,8 +30,32 @@ unsigned long InoDriver::_count_pulses2(int pin, unsigned long sampling_time)
         }
     }
 
-    return n;
+    return npulses;
 }
+
+/// -------------------------
+// MARK: _count_pulses3
+unsigned long InoDriver::_count_pulses3(int pin, unsigned long sampling_time)
+{
+    unsigned long npulses = 0;
+    unsigned long time0 = millis();
+
+    // Ensure pin is INPUT (or INPUT_PULLUP) somewhere in setup / PIN-MODE
+    int last = digitalRead(pin);
+
+    while (millis() - time0 < sampling_time)
+    {
+        int curr = digitalRead(pin);
+        // Count rising edges
+        if (last == LOW && curr == HIGH)
+        {
+            npulses++;
+        }
+        last = curr;
+    }
+    return npulses;
+}
+
 
 // MARK: _read
 int InoDriver::_read(int type, unsigned int pin)
@@ -52,6 +78,7 @@ int InoDriver::_read(int type, unsigned int pin)
     Serial.println("_read: BAD TYPE");
     return -2;
 }
+
 
 // MARK: _write
 void InoDriver::_write(int type, unsigned int pin, int val)

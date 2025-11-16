@@ -186,6 +186,10 @@ boolean InoDriver::handleMsg()
 
     // MARK: PULSE-IN
     // $INO:PULSE-IN:PIN:TIME%
+    // TODO: 
+    // - Add irradiance using 
+    // -- `https://github.com/RobTillaart/TSL235R`
+    // -- float irr_uW_cm2 = tsl.irradiance(pulses, (uint32_t)time);
     if (SerialCSVDriver::hasValString(1, "PULSE-IN"))
     {
         int pin = SerialCSVDriver::getValString(2).toInt();
@@ -197,7 +201,8 @@ boolean InoDriver::handleMsg()
         }
         else
         {
-            n = InoDriver::_count_pulses2(pin, time);
+            // n = InoDriver::_count_pulses2(pin, time);
+            n = InoDriver::_count_pulses3(pin, time);
         }
         SerialCSVDriver::sendMsgResponse("read", n);
         return true;
