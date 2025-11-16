@@ -56,6 +56,53 @@ unsigned long InoDriver::_count_pulses3(int pin, unsigned long sampling_time)
     return npulses;
 }
 
+/// -------------------------
+// MARK: _count_pulses4
+
+// --- High-speed pulse counter state (file-scope globals) ---
+volatile unsigned long ino_pulse_count = 0;
+
+// Simple ISR: just increment the counter on each rising edge
+void _count_pulses4_ISR()
+{
+    ino_pulse_count++;
+}
+
+unsigned long InoDriver::_count_pulses4(int pin, unsigned long sampling_time)
+{
+    // Reset counter
+    ino_pulse_count = 0;
+
+    // Map pin to interrupt number
+    int intNum = digitalPinToInterrupt(pin);
+    if (intNum == NOT_AN_INTERRUPT)
+    {
+        // You could also return some error code, but 0 is at least well-defined
+        return 0;
+    }
+
+    // Make sure pin is configured as input somewhere before this
+    // (you already have a PIN-MODE command for that)
+    // pinMode(pin, INPUT); // often done via your CSV command
+
+    // Attach ISR
+    attachInterrupt(intNum, _count_pulses4_ISR, RISING);
+
+    unsigned long t0 = millis();
+    while (millis() - t0 < sampling_time)
+    {
+        // Nothing: just wait. You could call CSCReactor::onloop() here
+        // if you want to stay responsive, but then your measurement window
+        // is slightly less sharp in time (usually OK for OD).
+    }
+
+    // Stop counting
+    detachInterrupt(intNum);
+
+    // Return number of pulses seen in sampling_time ms
+    return ino_pulse_count;
+}
+
 
 // MARK: _read
 int InoDriver::_read(int type, unsigned int pin)

@@ -203,6 +203,7 @@ boolean InoDriver::handleMsg()
         {
             // n = InoDriver::_count_pulses2(pin, time);
             n = InoDriver::_count_pulses3(pin, time);
+            // n = InoDriver::_count_pulses4(pin, time);
         }
         SerialCSVDriver::sendMsgResponse("read", n);
         return true;

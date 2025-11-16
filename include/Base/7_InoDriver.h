@@ -24,9 +24,10 @@ namespace InoDriver
     void sayHi();
 
     // ----------------------------------------------------
-    // MARK: Utils
+    // MARK: UTILS
     unsigned long _count_pulses2(int pin, unsigned long sampling_time);
     unsigned long _count_pulses3(int pin, unsigned long sampling_time);
+    unsigned long _count_pulses4(int pin, unsigned long sampling_time);
     void _serial_pin_mode(int type);
     void _serial_write(int type);
     void _serial_read(int type);

@@ -1,3 +1,24 @@
+## NOTE: TSL235R frequency measurement scaling issue
+
+- The TSL235R outputs a light-dependent frequency that can exceed 100–300 kHz
+- at high irradiance. An Arduino (even a Mega2560) cannot reliably measure
+- this range on multiple channels using pulseIn(), digitalRead() loops, or
+- interrupt-based counting. CPU latency and the limited number of hardware
+- interrupts make accurate multi-sensor acquisition impossible.
+
+- For systems with many TSL235R sensors (e.g., 10-channel OD/biomass
+- measurements), pulse counting must be offloaded to external hardware.
+- Typical solutions are: dedicated frequency-counter ICs, ripple counters
+- such as 74HC4040/74HC393, or small auxiliary microcontrollers that perform
+- high-speed edge counting and periodically report results to the Arduino.
+
+- The Arduino should only *read* the accumulated counts (or prescaled
+- frequency) from these external modules. This ensures full-range operation,
+- minimal pulse loss, and accurate high-frequency measurement across all
+- channels.
+
+
+***
 ## ExternalCommands and ConstantCommands
 - the Arduino must be both reactive to external commands
     - called `ExternalCommands`
